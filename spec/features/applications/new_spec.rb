@@ -44,23 +44,25 @@ RSpec.describe 'Applications index page' do
 
     fill_in "name", with: "John Doe"
     fill_in "address", with: "1111 Main Street"
+    fill_in "city", with: ""
     fill_in "state", with: "Anystate"
     fill_in "zip", with: "11111"
 
     click_on 'Create Application'
 
     expect(page).to have_content("Application not created, please fill out all fields")
-    expect(page).to have_content('Create Application')
+    expect(page).to have_button('Create Application')
 
-    # fill_in "address", with: "1111 Main Street"
-    # fill_in "city", with: "Anycity"
-    # fill_in "state", with: "Anystate"
-    # fill_in "zip", with: "11111"
-    #
-    # click_on 'Create Application'
-    #
-    # expect(page).to have_content("Application not created, please fill out all fields")
-    # expect(page).to have_content('Create Application')
+    fill_in "name", with: "John Doe"
+    fill_in "address", with: "1111 Main Street"
+    fill_in "city", with: "Anycity"
+    fill_in "state", with: ""
+    fill_in "zip", with: "11111"
+
+    click_on 'Create Application'
+
+    expect(page).to have_content("Application not created, please fill out all fields")
+    expect(page).to have_button('Create Application')
   end
 end
 
