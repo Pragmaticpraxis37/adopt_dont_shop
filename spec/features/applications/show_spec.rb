@@ -30,11 +30,9 @@ RSpec.describe 'Applications show page' do
   it "displays a link for the pet's show page and the link takes you to the pet's show page" do
     visit "/applicants/#{@app_2.id}"
 
-    save_and_open_page
     expect(page).to_not have_link "#{@dog_1.name}", href: "/pets/#{@dog_1.id}"
     expect(page).to have_link "#{@dog_2.name}", href: "/pets/#{@dog_2.id}"
     expect(page).to have_link "#{@dog_3.name}", href: "/pets/#{@dog_3.id}"
-
 
     click_link "#{@dog_2.name}", href: "/pets/#{@dog_2.id}"
 
