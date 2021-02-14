@@ -35,6 +35,33 @@ RSpec.describe 'Applications index page' do
     expect(page).to have_content("11111")
     expect(page).to have_content("In Progress")
   end
+
+  it "redirects back to the new application page when all fields aren't filled in" do
+
+    visit "/pets"
+
+    click_link "Start an Application", href: "/applicants/new"
+
+    fill_in "name", with: "John Doe"
+    fill_in "address", with: "1111 Main Street"
+    fill_in "state", with: "Anystate"
+    fill_in "zip", with: "11111"
+
+    click_on 'Create Application'
+
+    expect(page).to have_content("Application not created, please fill out all fields")
+    expect(page).to have_content('Create Application')
+
+    # fill_in "address", with: "1111 Main Street"
+    # fill_in "city", with: "Anycity"
+    # fill_in "state", with: "Anystate"
+    # fill_in "zip", with: "11111"
+    #
+    # click_on 'Create Application'
+    #
+    # expect(page).to have_content("Application not created, please fill out all fields")
+    # expect(page).to have_content('Create Application')
+  end
 end
 
 
