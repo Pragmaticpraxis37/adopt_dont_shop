@@ -8,7 +8,6 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-    require "pry"; binding.pry
     applicant = Application.new({
       name: params[:name],
       address: params[:address],
@@ -17,8 +16,6 @@ class ApplicantsController < ApplicationController
       zip: params[:zip],
       application_status: params[:application_status],
       })
-
-    require "pry"; binding.pry
 
     if applicant.save
       redirect_to "/applicants/#{applicant.id}"
