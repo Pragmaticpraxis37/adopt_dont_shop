@@ -8,6 +8,8 @@ RSpec.describe 'Applications show page' do
     @dog_1 = create(:pet)
     @dog_2 = create(:pet, name: "Zeus")
     @dog_3 = create(:pet, name: "Goofy")
+    @dog_4 = create(:pet, name: "Zeeb")
+    @dog_5 = create(:pet, name: "Zeel")
     @shelter_1 = create(:shelter)
     @app_1_dog_1 = PetApplication.create!(application: @app_1, pet: @dog_1)
     @app_1_dog_3 = PetApplication.create!(application: @app_1, pet: @dog_3)
@@ -37,5 +39,41 @@ RSpec.describe 'Applications show page' do
     click_link "#{@dog_2.name}", href: "/pets/#{@dog_2.id}"
 
     expect(page).to have_content(@dog_2.name)
+  end
+
+  it "allows a pet to be searched for by name" do
+    visit "/applicants/#{@app_1.id}"
+
+    expect(page).to have_field("Add a Pet to this Application")
+    expect(page).to have_button("Submit")
+    fill_in :query, with: "Ze"
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/applicants/#{@app_1.id}")
+    # save_and_open_page
+
+    expect(page).to have_content("Zeus")
+    expect(page).to have_content("Zeeb")
+    expect(page).to have_content("Zeel")
+
+    fill_in :query, with: "Zee"
+
+    click_on "Submit"
+
+    expect(page).to have_content("Zeeb")
+    expect(page).to have_content("Zeel")
+
+    fill_in :query, with: "Zeel"
+
+    click_on "Submit"
+
+    expect(page).to have_content("Zeel")
+
+    fill_in :query, with: "ZEEL"
+
+    click_on "Submit"
+
+    expect(page).to have_content("Zeel")
   end
 end
