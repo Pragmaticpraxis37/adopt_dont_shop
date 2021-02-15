@@ -7,6 +7,7 @@ RSpec.describe 'Applications show page' do
     @app_3 = create(:application, name: "Jane Doe", names_of_pets: "Goofy")
     @app_4 = create(:application)
     @app_5 = create(:application)
+    @app_6 = create(:application)
     @dog_1 = create(:pet)
     @dog_2 = create(:pet, name: "Zeus")
     @dog_3 = create(:pet, name: "Goofy")
@@ -120,6 +121,46 @@ RSpec.describe 'Applications show page' do
 
     click_on "Adopt this Pet", id: @dog_5.id
 
+    expect(page).to have_link "#{@dog_5.name}", href: "/pets/#{@dog_5.id}"
+  end
+
+  it "only shows submit and reason input field after pets have been added to the
+      the application" do
+
+    visit "/applicants/#{@app_6.id}"
+
+    expect(page).to have_no_content("Why would you be a good home for these pet(s)?")
+
+    fill_in :query, with: "Goofy"
+
+    within("#pet") do
+      click_on "Submit"
+    end
+
+    click_on "Adopt this Pet", id: @dog_3.id
+
+    expect(page).to have_content("Why would you be a good home for these pet(s)?")
+
+    fill_in :query, with: "Zeel"
+
+    within("#pet") do
+      click_on "Submit"
+    end
+
+    click_on "Adopt this Pet", id: @dog_5.id
+
+    expect(page).to have_content("Why would you be a good home for these pet(s)?")
+    expect(page).to have_content("Add a Pet to this Application")
+
+    fill_in :reason, with: "I need a friend"
+
+    within("#explanation") do
+      click_on "Submit"
+    end
+
+    expect(page).to have_no_content("Add a Pet to this Application")
+    expect(page).to have_content("Pending")
+    expect(page).to have_link "#{@dog_3.name}", href: "/pets/#{@dog_3.id}"
     expect(page).to have_link "#{@dog_5.name}", href: "/pets/#{@dog_5.id}"
   end
 end
