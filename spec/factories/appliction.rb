@@ -5,8 +5,8 @@ FactoryBot.define do
     city {"Anycity"}
     state {"Anystate"}
     zip {"11111"}
-    reason {"I need a friend."}
-    names_of_pets {"Doggo, Cat-Cat"}
+    reason {""}
+    names_of_pets {""}
     application_status {"In Progress"}
   end
 end
