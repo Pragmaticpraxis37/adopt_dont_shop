@@ -16,7 +16,9 @@ Application Status: <%= @applicant.application_status %><br>
 <% end %>
 
 <% if params[:query] %>
-  <% @pet.each do |pet| %>
-    <%= pet.name %><br>
+  <% @pets.each do |pet| %>
+    <%= pet.name %> <%= button_to "Adopt this Pet",
+        {:controller => :applicants, :action => "show"}, params: {pet_id: pet.id},
+        method: :get, id: "#{pet.id}" %>  <br>
   <% end %>
 <% end %>
