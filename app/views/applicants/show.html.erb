@@ -7,4 +7,16 @@ Reason for Adoption: <%= @applicant.reason %><br>
 Name of pet(s): <% @applicant.pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <% end %><br>
-Application Status: <%= @applicant.application_status %>
+Application Status: <%= @applicant.application_status %><br>
+
+<%= form_with url: "/applicants/#{@applicant.id}", method: :get do |form| %>
+  <%= form.label :query, "Add a Pet to this Application" %><br>
+  <%= form.text_field :query %>
+  <%= form.submit "Submit" %>
+<% end %>
+
+<% if params[:query] %>
+  <% @pet.each do |pet| %>
+    <%= pet.name %><br>
+  <% end %>
+<% end %>
