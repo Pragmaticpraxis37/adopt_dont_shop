@@ -5,6 +5,8 @@ RSpec.describe 'Applications show page' do
     @app_1 = create(:application)
     @app_2 = create(:application, name: "John Doe, Jr.", names_of_pets: "Zeus")
     @app_3 = create(:application, name: "Jane Doe", names_of_pets: "Goofy")
+    @app_4 = create(:application)
+    @app_5 = create(:application)
     @dog_1 = create(:pet)
     @dog_2 = create(:pet, name: "Zeus")
     @dog_3 = create(:pet, name: "Goofy")
@@ -14,7 +16,6 @@ RSpec.describe 'Applications show page' do
     @app_1_dog_1 = PetApplication.create!(application: @app_1, pet: @dog_1)
     @app_1_dog_3 = PetApplication.create!(application: @app_1, pet: @dog_3)
     @app_2_dog_2 = PetApplication.create!(application: @app_2, pet: @dog_2)
-    @app_2_dog_3 = PetApplication.create!(application: @app_2, pet: @dog_3)
   end
 
   it "displays an applicant with corresponding id and attributes" do
@@ -31,10 +32,8 @@ RSpec.describe 'Applications show page' do
 
   it "displays a link for the pet's show page and the link takes you to the pet's show page" do
     visit "/applicants/#{@app_2.id}"
-
     expect(page).to_not have_link "#{@dog_1.name}", href: "/pets/#{@dog_1.id}"
     expect(page).to have_link "#{@dog_2.name}", href: "/pets/#{@dog_2.id}"
-    expect(page).to have_link "#{@dog_3.name}", href: "/pets/#{@dog_3.id}"
 
     click_link "#{@dog_2.name}", href: "/pets/#{@dog_2.id}"
 
@@ -51,7 +50,6 @@ RSpec.describe 'Applications show page' do
     click_on "Submit"
 
     expect(current_path).to eq("/applicants/#{@app_1.id}")
-    # save_and_open_page
 
     expect(page).to have_content("Zeus")
     expect(page).to have_content("Zeeb")
@@ -75,5 +73,53 @@ RSpec.describe 'Applications show page' do
     click_on "Submit"
 
     expect(page).to have_content("Zeel")
+  end
+
+  it "allows a found pet to be added to the application" do
+    visit "/applicants/#{@app_4.id}"
+
+    fill_in :query, with: "Goofy"
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/applicants/#{@app_4.id}")
+
+    expect(page).to have_content("Goofy")
+
+    click_on "Adopt this Pet", id: @dog_3.id
+
+    expect(page).to have_link "#{@dog_3.name}", href: "/pets/#{@dog_3.id}"
+
+
+    visit "/applicants/#{@app_5.id}"
+
+    fill_in :query, with: "Ze"
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/applicants/#{@app_5.id}")
+
+    expect(page).to have_content("Zeeb")
+    expect(page).to have_content("Zeel")
+
+    click_on "Adopt this Pet", id: @dog_4.id
+
+    expect(page).to have_link "#{@dog_4.name}", href: "/pets/#{@dog_4.id}"
+
+
+    visit "/applicants/#{@app_5.id}"
+
+    fill_in :query, with: "Ze"
+
+    click_on "Submit"
+
+    expect(current_path).to eq("/applicants/#{@app_5.id}")
+
+    expect(page).to have_content("Zeeb")
+    expect(page).to have_content("Zeel")
+
+    click_on "Adopt this Pet", id: @dog_5.id
+
+    expect(page).to have_link "#{@dog_5.name}", href: "/pets/#{@dog_5.id}"
   end
 end
