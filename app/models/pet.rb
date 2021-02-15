@@ -9,4 +9,11 @@ class Pet < ApplicationRecord
             }
 
   enum sex: [:female, :male]
+
+  def self.search_pet_name(name)
+    Pet.where("lower(name) LIKE ?", "%#{name.downcase}%")
+    # require "pry"; binding.pry
+
+    # Pet.where("name LIKE ?", "%#{name}%")
+  end
 end
