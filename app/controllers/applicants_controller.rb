@@ -3,9 +3,21 @@ class ApplicantsController < ApplicationController
   def show
     @applicant = Application.find(params[:applicant_id])
     @pets = Pet.search_pet_name(params[:query]) unless params[:query].nil?
+
     if !params[:pet_id].nil?
       @pet = Pet.find(params[:pet_id])
       @add_pet = PetApplication.create!(application: @applicant, pet: @pet)
+
+      if @applicant.names_of_pets = ""
+        @applicant.names_of_pets = @pet.name
+      else
+        @applicant.names_of_pets = (@applicant.names_of_pets + " " + @pet.name + " ")
+      end
+    end
+
+    if !params[:reason].nil?
+      @applicant.reason = params[:reason]
+      @applicant.application_status = "Pending"
     end
   end
 
