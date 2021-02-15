@@ -9,16 +9,30 @@ Name of pet(s): <% @applicant.pets.each do |pet| %>
 <% end %><br>
 Application Status: <%= @applicant.application_status %><br>
 
-<%= form_with url: "/applicants/#{@applicant.id}", method: :get do |form| %>
-  <%= form.label :query, "Add a Pet to this Application" %><br>
-  <%= form.text_field :query %>
-  <%= form.submit "Submit" %>
-<% end %>
+<% if @applicant.reason == ""%>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :get do |form| %>
+    <section id="pet">
+    <%= form.label :query, "Add a Pet to this Application" %><br>
+    <%= form.text_field :query %>
+    <%= form.submit "Submit"%>
+    </section>
+  <% end %>
+<% end %><br>
 
-<% if params[:query] %>
+<% if params[:query] != nil && @applicant.reason == ""%>
   <% @pets.each do |pet| %>
     <%= pet.name %> <%= button_to "Adopt this Pet",
         {:controller => :applicants, :action => "show"}, params: {pet_id: pet.id},
         method: :get, id: "#{pet.id}" %>  <br>
+  <% end %>
+<% end %><br>
+
+<% if @applicant.names_of_pets != "" %>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, id: "reason" do |form| %>
+    <section id="explanation">
+    <%= form.label :reason, "Why would you be a good home for these pet(s)?" %><br>
+    <%= form.text_field :reason %>
+    <%= form.submit "Submit" %>
+    </section>
   <% end %>
 <% end %>
