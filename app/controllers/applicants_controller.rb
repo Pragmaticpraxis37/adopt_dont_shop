@@ -2,7 +2,11 @@ class ApplicantsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:applicant_id])
-    @pet = Pet.search_pet_name(params[:query]) unless params[:query].nil?
+    @pets = Pet.search_pet_name(params[:query]) unless params[:query].nil?
+    if !params[:pet_id].nil?
+      @pet = Pet.find(params[:pet_id])
+      @add_pet = PetApplication.create!(application: @applicant, pet: @pet)
+    end
   end
 
   def new
