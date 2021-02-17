@@ -1,0 +1,19 @@
+<% @applicant.pets.all.each do |pet| %>
+  <section id="pet-<%=pet.id%>">
+
+  <% status_pet = pet.pet_applications.where("pet_id = ? AND application_id = ?", pet.id, @applicant)[0].status %>
+
+  <% if status_pet.nil? %>
+    <%="Pet Name: #{pet.name}" %> <%= button_to "Approve",
+        {:controller => :admin, :action => "status_pet"},
+        params: {pet_id: pet.id, status: "Approved"},
+        method: :get, id: "Approve#{pet.id}" %><%= button_to "Reject",
+        {:controller => :admin, :action => "status_pet"},
+        params: {pet_id: pet.id, status: "Rejected"},
+        method: :get, id: "Reject#{pet.id}" %>
+  <% elsif status_pet == "Approved"%>
+    <%= "Pet Name: #{pet.name} Approved" %>
+  <% elsif status_pet == "Rejected" %>
+    <%= "Pet Name: #{pet.name} Rejected" %>
+  <% end %>
+<% end %>
