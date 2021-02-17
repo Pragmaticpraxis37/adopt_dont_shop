@@ -11,7 +11,7 @@ class ApplicantsController < ApplicationController
       if @applicant.names_of_pets = ""
         @applicant.names_of_pets = @pet.name
       else
-        @applicant.names_of_pets = (@applicant.names_of_pets + " " + @pet.name + " ")
+        @applicant.names_of_pets = (@applicant.names_of_pets + ", " + @pet.name + " ")
       end
     end
 
