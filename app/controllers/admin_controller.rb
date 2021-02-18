@@ -7,6 +7,12 @@ class AdminController < ApplicationController
   def status_pet
     @applicant = Application.find(params[:applicant_id])
     @applicant.pet_applications.where("pet_id = ?", params[:pet_id]).update(status: params[:status])
+    PetApplication.all_pets_statuses(@applicant)
+    if @applicant.application_status == "Accepted"
+      Pet.pets_non_adoptable(@applicant)
+    end
+    # @app_status = PetApplication.all_pets_statuses(@applicant)
+    # Do you need to save this to a variable if it's changing the applicant?
     render :show
   end
 end
