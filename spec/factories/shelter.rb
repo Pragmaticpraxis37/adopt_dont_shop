@@ -7,12 +7,3 @@ FactoryBot.define do
     zip {"22222"}
   end
 end
-
-
-# create_table "shelters", force: :cascade do |t|
-#   t.string "name"
-#   t.string "address"
-#   t.string "city"
-#   t.string "state"
-#   t.integer "zip"
-# end
