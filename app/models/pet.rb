@@ -16,4 +16,8 @@ class Pet < ApplicationRecord
 
     # Pet.where("name LIKE ?", "%#{name}%")
   end
+
+  def self.pets_non_adoptable(applicant)
+    require "pry"; binding.pry
+  end
 end
