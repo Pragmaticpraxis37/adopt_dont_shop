@@ -17,3 +17,9 @@
     <%= "Pet Name: #{pet.name} Rejected" %>
   <% end %>
 <% end %>
+<br> 
+<% if @applicant.application_status == "Rejected" %>
+  <%="Application Status is Rejected" %>
+<% elsif @applicant.application_status == "Accepted" %>
+  <%="Application Status is Accepted"  %>
+<% end %>
