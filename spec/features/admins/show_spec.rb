@@ -59,8 +59,6 @@ RSpec.describe 'Admins show page' do
     find(id: "Approve#{@dog_2.id}").click
     find(id: "Approve#{@dog_3.id}").click
 
-    save_and_open_page
-
     within("#pet-#{@dog_1.id}") do
       expect(page).to have_button("Approve")
     end
@@ -101,20 +99,77 @@ RSpec.describe 'Admins show page' do
     find(id: "Reject#{@dog_3.id}").click
 
     within("#pet-#{@dog_2.id}") do
+      expect(page).to have_button("Approve")
+    end
+    within("#pet-#{@dog_2.id}") do
       expect(page).to have_button("Reject")
     end
     expect(page).to have_content("Pet Name: #{@dog_1.name} Rejected")
     expect(page).to have_content("Pet Name: #{@dog_3.name} Rejected")
 
-    expect(@app_4.pet_applications.where("pet_id = ?", @dog_1.id)[0].status).to eq(nil)
-    expect(@app_4.pet_applications.where("pet_id = ?", @dog_3.id)[0].status).to eq(nil)
+    visit "/admin/applicants/#{@app_4.id}"
+
+    expect(page).to have_content("Pet Name: #{@dog_1.name}")
+    expect(page).to have_content("Pet Name: #{@dog_2.name}")
+    expect(page).to have_content("Pet Name: #{@dog_3.name}")
+
+    within("#pet-#{@dog_1.id}") do
+      expect(page).to have_button("Approve")
+    end
+    within("#pet-#{@dog_1.id}") do
+      expect(page).to have_button("Reject")
+    end
+
+    within("#pet-#{@dog_2.id}") do
+      expect(page).to have_button("Approve")
+    end
+    within("#pet-#{@dog_2.id}") do
+      expect(page).to have_button("Reject")
+    end
+
+    within("#pet-#{@dog_3.id}") do
+      expect(page).to have_button("Approve")
+    end
+    within("#pet-#{@dog_3.id}") do
+      expect(page).to have_button("Reject")
+    end
   end
 
   it "when all pets are approved on an application, the application's status has
     changed to approved" do
 
-    @app_5
-    require "pry"; binding.pry
+    visit "/admin/applicants/#{@app_5.id}"
 
+    find(id: "Reject#{@dog_3.id}").click
+    find(id: "Reject#{@dog_4.id}").click
+    find(id: "Approve#{@dog_5.id}").click
+
+    expect(page).to have_content("Application Status is Rejected")
+  end
+
+  it "when all pets are approved on an application, the application's status has
+    changed to approved" do
+
+    visit "/admin/applicants/#{@app_5.id}"
+
+    find(id: "Approve#{@dog_3.id}").click
+    find(id: "Approve#{@dog_4.id}").click
+    find(id: "Approve#{@dog_5.id}").click
+
+    expect(page).to have_content("Application Status is Accepted")
+  end
+
+  it "when all pets are approved on an application, the pets listed in the application
+     have their adoptable status changed to non-adoptable" do
+
+    visit "/admin/applicants/#{@app_5.id}"
+
+    find(id: "Approve#{@dog_3.id}").click
+    find(id: "Approve#{@dog_4.id}").click
+    find(id: "Approve#{@dog_5.id}").click
+
+    save_and_open_page
+
+    expect(page).to have_content("Application Status is Accepted")
   end
 end
