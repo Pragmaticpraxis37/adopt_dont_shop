@@ -18,6 +18,6 @@ class Pet < ApplicationRecord
   end
 
   def self.pets_non_adoptable(applicant)
-    require "pry"; binding.pry
+    
   end
 end
