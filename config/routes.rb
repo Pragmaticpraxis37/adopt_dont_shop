@@ -28,4 +28,6 @@ Rails.application.routes.draw do
 
   get "/admin/applicants/:applicant_id", to: "admin#status_pet"
   get "/admin/applicants/:applicant_id", to: "admin#show"
+  get "/admin/shelters", to: "admin#index"
+  get "/admin/shelters/:shelter_id", to: "admin#show"
 end
