@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admins index page' do
   before :each do
-    # @app_1 = create(:application, reason: "I need friends.", names_of_pets: "Buddy, Goofy")
+    @app_1 = create(:application)
     # @app_2 = create(:application, name: "John Doe, Jr.", names_of_pets: "Zeus")
     # @app_3 = create(:application, name: "Jane Doe", names_of_pets: "Goofy")
     # @app_4 = create(:application)
@@ -17,6 +17,9 @@ RSpec.describe 'Admins index page' do
     @shelter_3 = create(:shelter, name: "Big Shelter")
     @shelter_4 = create(:shelter, name: "City Shelter")
     @shelter_5 = create(:shelter, name: "Dog Shelter")
+    @dog_1 = @shelter_2.pets.create!(image:"", name: "Thor", description: "dog", approximate_age: 2, sex: "male")
+    @dog_2 = @shelter_2.pets.create!(image:"", name: "Loki", description: "dog", approximate_age: 2, sex: "male")
+    @app_1_dog_1 = PetApplication.create!(application: @app_1, pet: @dog_1)
     # @app_1_dog_1 = PetApplication.create!(application: @app_1, pet: @dog_1)
     # @app_1_dog_3 = PetApplication.create!(application: @app_1, pet: @dog_3)
     # @app_2_dog_2 = PetApplication.create!(application: @app_2, pet: @dog_2)
@@ -47,6 +50,7 @@ RSpec.describe 'Admins index page' do
 
     save_and_open_page
     expect(page).to have_content("A Shelter")
+
 
   end
 end
