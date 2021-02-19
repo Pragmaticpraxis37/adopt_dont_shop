@@ -28,7 +28,7 @@ Application Status: <%= @applicant.application_status %><br>
 <% end %><br>
 
 <% if @applicant.names_of_pets != "" %>
-  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, id: "reason" do |form| %>
+  <%= form_with url: "/applicants/#{@applicant.id}", method: :get, id: "reason", local: true do |form| %>
     <section id="explanation">
     <%= form.label :reason, "Why would you be a good home for these pet(s)?" %><br>
     <%= form.text_field :reason %>
