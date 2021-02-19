@@ -8,4 +8,8 @@ class Shelter < ApplicationRecord
   def self.name_and_address(shelter_id)
     Shelter.find_by_sql("SELECT name, address, city, state FROM shelters WHERE id = #{shelter_id}")
   end
+
+  def self.pending_applications_alphabetically(shelter_id)
+    require "pry"; binding.pry
+  end
 end
