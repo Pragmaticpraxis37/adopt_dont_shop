@@ -20,41 +20,41 @@ shelter_4 = Shelter.create!(name: "Shelter 4", address: "4444 4th Street",
                             city: "Fourth City", state: "Fourth State", zip: "44444")
 
 
-shelter_1.pets.create!(image: "", name: "Dog One", approximate_age: 1,
+dog_1 = shelter_1.pets.create!(image: "", name: "Dog One", approximate_age: 1,
                       description: "doggo", sex: "male")
-shelter_1.pets.create!(image: "", name: "Dog Two", approximate_age: 2,
+dog_2 = shelter_1.pets.create!(image: "", name: "Dog Two", approximate_age: 2,
                       description: "doggo", sex: "male")
-shelter_1.pets.create!(image: "", name: "Dog Three", approximate_age: 3,
+dog_3 = shelter_1.pets.create!(image: "", name: "Dog Three", approximate_age: 3,
                       description: "doggo", sex: "male")
-shelter_1.pets.create!(image: "", name: "Dog Four", approximate_age: 4,
-                      description: "doggo", sex: "male")
-
-shelter_2.pets.create!(image: "", name: "Dog Five", approximate_age: 5,
-                      description: "doggo", sex: "male")
-shelter_2.pets.create!(image: "", name: "Dog Six", approximate_age: 6,
-                      description: "doggo", sex: "male")
-shelter_2.pets.create!(image: "", name: "Dog Seven", approximate_age: 7,
-                      description: "doggo", sex: "male")
-shelter_2.pets.create!(image: "", name: "Dog Eight", approximate_age: 8,
+dog_4 = shelter_1.pets.create!(image: "", name: "Dog Four", approximate_age: 4,
                       description: "doggo", sex: "male")
 
-shelter_3.pets.create!(image: "", name: "Dog Nine", approximate_age: 9,
+dog_5 = shelter_2.pets.create!(image: "", name: "Dog Five", approximate_age: 5,
                       description: "doggo", sex: "male")
-shelter_3.pets.create!(image: "", name: "Dog Ten", approximate_age: 10,
+dog_6 = shelter_2.pets.create!(image: "", name: "Dog Six", approximate_age: 6,
                       description: "doggo", sex: "male")
-shelter_3.pets.create!(image: "", name: "Dog Eleven", approximate_age: 11,
+dog_7 = shelter_2.pets.create!(image: "", name: "Dog Seven", approximate_age: 7,
                       description: "doggo", sex: "male")
-shelter_3.pets.create!(image: "", name: "Dog Twelve", approximate_age: 12,
+dog_8 = shelter_2.pets.create!(image: "", name: "Dog Eight", approximate_age: 8,
+                      description: "doggo", sex: "male")
+
+dog_9 = shelter_3.pets.create!(image: "", name: "Dog Nine", approximate_age: 9,
+                      description: "doggo", sex: "male")
+dog_10 = shelter_3.pets.create!(image: "", name: "Dog Ten", approximate_age: 10,
+                      description: "doggo", sex: "male")
+dog_11 = shelter_3.pets.create!(image: "", name: "Dog Eleven", approximate_age: 11,
+                      description: "doggo", sex: "male")
+dog_12 = shelter_3.pets.create!(image: "", name: "Dog Twelve", approximate_age: 12,
                       description: "doggo", sex: "male")
 
 
-shelter_4.pets.create!(image: "", name: "Dog Thirteen", approximate_age: 13,
+dog_13 = shelter_4.pets.create!(image: "", name: "Dog Thirteen", approximate_age: 13,
                       description: "doggo", sex: "male")
-shelter_4.pets.create!(image: "", name: "Dog Fourteen", approximate_age: 14,
+dog_14 = shelter_4.pets.create!(image: "", name: "Dog Fourteen", approximate_age: 14,
                       description: "doggo", sex: "male")
-shelter_4.pets.create!(image: "", name: "Dog Fifteen", approximate_age: 15,
+dog_15 = shelter_4.pets.create!(image: "", name: "Dog Fifteen", approximate_age: 15,
                       description: "doggo", sex: "male")
-shelter_4.pets.create!(image: "", name: "Dog Sixteen", approximate_age: 16,
+dog_16 = shelter_4.pets.create!(image: "", name: "Dog Sixteen", approximate_age: 16,
                       description: "doggo", sex: "male")
 
 applicant_1 = Application.create!(name: "Person One", address: "1111 1st Ave.",

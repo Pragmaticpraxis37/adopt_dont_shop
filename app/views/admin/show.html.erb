@@ -7,17 +7,17 @@
     <%="Pet Name: #{pet.name}" %> <%= button_to "Approve",
         {:controller => :admin, :action => "status_pet"},
         params: {pet_id: pet.id, status: "Approved"},
-        method: :get, id: "Approve#{pet.id}" %><%= button_to "Reject",
+        method: :get, id: "Approve#{pet.id}", local: true %><%= button_to "Reject",
         {:controller => :admin, :action => "status_pet"},
         params: {pet_id: pet.id, status: "Rejected"},
-        method: :get, id: "Reject#{pet.id}" %>
+        method: :get, id: "Reject#{pet.id}", local: true %>
   <% elsif status_pet == "Approved"%>
     <%= "Pet Name: #{pet.name} Approved" %>
   <% elsif status_pet == "Rejected" %>
     <%= "Pet Name: #{pet.name} Rejected" %>
   <% end %>
 <% end %>
-<br> 
+<br>
 <% if @applicant.application_status == "Rejected" %>
   <%="Application Status is Rejected" %>
 <% elsif @applicant.application_status == "Accepted" %>
