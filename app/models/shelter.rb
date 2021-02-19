@@ -10,6 +10,5 @@ class Shelter < ApplicationRecord
   end
 
   def self.pending_applications_alphabetically(shelter_id)
-    require "pry"; binding.pry
   end
 end
