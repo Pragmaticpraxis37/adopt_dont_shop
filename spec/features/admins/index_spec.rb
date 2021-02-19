@@ -48,7 +48,6 @@ RSpec.describe 'Admins index page' do
   it "displays the shelter's name and full address" do
     visit "/admin/shelters/#{@shelter_2.id}"
 
-    save_and_open_page
     expect(page).to have_content("A Shelter")
 
 
