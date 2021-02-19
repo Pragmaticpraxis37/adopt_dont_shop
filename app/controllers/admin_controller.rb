@@ -8,7 +8,10 @@ class AdminController < ApplicationController
     if params[:shelter_id]
       @shelter = Shelter.name_and_address(params[:shelter_id])
     end
-    require "pry"; binding.pry
+
+    if params[:shelter_id]
+      @shelter = Shelter.pending_applications_alphabetically(params[:shelter_id])
+    end
   end
 
   def status_pet
